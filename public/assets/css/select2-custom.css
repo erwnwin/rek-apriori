@@ -1,0 +1,31 @@
+/* Warna latar belakang dan teks dropdown */
+.select2-container--default .select2-selection--single {
+    background-color: #f8f9fa; /* Ganti dengan warna latar belakang yang diinginkan */
+    color: #495057; /* Ganti dengan warna teks yang diinginkan */
+    border: 1px solid #ced4da; /* Ganti dengan warna border yang diinginkan */
+    border-radius: 4px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #495057; /* Ganti dengan warna teks yang diinginkan */
+}
+
+/* Warna dropdown saat terbuka */
+.select2-container--default .select2-dropdown {
+    background-color: #ffffff; /* Ganti dengan warna latar belakang dropdown yang diinginkan */
+    border: 1px solid #ced4da; /* Ganti dengan warna border dropdown yang diinginkan */
+    border-radius: 4px;
+}
+
+/* Warna teks opsi dropdown */
+.select2-container--default .select2-results__option {
+    color: #495057; /* Ganti dengan warna teks opsi dropdown yang diinginkan */
+}
+
+/* Warna teks opsi yang dipilih */
+.select2-container--default .select2-results__option--highlighted {
+    background-color: #0b5175; /* Ganti dengan warna latar belakang opsi yang dipilih yang diinginkan */
+    color: #ffffff; /* Ganti dengan warna teks opsi yang dipilih yang diinginkan */
+}
+
+

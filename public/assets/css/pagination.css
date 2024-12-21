@@ -1,0 +1,67 @@
+/* CSS untuk pagination minimalis dan elegan */
+.pagination {
+    display: flex;
+    justify-content: center;
+    /* Memusatkan pagination */
+    margin: 20px 0;
+    /* Jarak vertikal */
+    padding: 0;
+    list-style: none;
+}
+
+.pagination li {
+    margin: 0 4px;
+    /* Jarak antar item */
+}
+
+.pagination .page-link {
+    display: block;
+    padding: 0.5rem 0.75rem;
+    /* Padding */
+    font-size: 0.875rem;
+    /* Ukuran font */
+    color: #007bff;
+    /* Warna teks link */
+    background-color: #ffffff;
+    /* Warna latar belakang */
+    border: 1px solid #dee2e6;
+    /* Warna border */
+    border-radius: 4px;
+    /* Sudut membulat */
+    text-align: center;
+    text-decoration: none;
+    /* Menghilangkan garis bawah */
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    /* Efek transisi */
+}
+
+.pagination .page-link:hover {
+    color: #ffffff;
+    /* Warna teks saat hover */
+    background-color: #007bff;
+    /* Warna latar belakang saat hover */
+    border-color: #007bff;
+    /* Warna border saat hover */
+}
+
+.pagination .page-item.active .page-link {
+    color: #ffffff;
+    /* Warna teks saat aktif */
+    background-color: #007bff;
+    /* Warna latar belakang saat aktif */
+    border-color: #007bff;
+    /* Warna border saat aktif */
+}
+
+.pagination .page-item.disabled .page-link {
+    color: #6c757d;
+    /* Warna teks saat disabled */
+    background-color: #ffffff;
+    /* Warna latar belakang saat disabled */
+    border-color: #dee2e6;
+    /* Warna border saat disabled */
+    cursor: not-allowed;
+    /* Menampilkan kursor saat disabled */
+    opacity: 0.6;
+    /* Efek transparansi */
+}
