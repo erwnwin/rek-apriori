@@ -9,9 +9,9 @@
     <meta name="description" content="Modified by Erwins" />
     <meta name="author" content="Erwins" />
 
-    <link rel="apple-touch-icon" sizes="180x180" href="<?= base_url() ?>public/image/logo/logo_kelatra.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="<?= base_url() ?>public/image/logo/logo_kelatra.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="<?= base_url() ?>public/image/logo/logo_kelatra.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="<?= base_url() ?>assets/img/logo_kelatra.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="<?= base_url() ?>assets/img/logo_kelatra.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="<?= base_url() ?>assets/img/logo_kelatra.png" />
 
     <title>Katalindo Medikarya Utama | <?= $title; ?></title>
 
@@ -245,7 +245,7 @@
 
                 <nav class="navbar navbar-expand-lg custom_nav-container fixed-top" id="navbar">
                     <a class="navbar-brand" href="<?= base_url('myhome') ?>">
-                        <img src="<?= base_url() ?>assets/img/logo/logo_kelatra.png" alt="Logo" style="height: 40px; margin-right: 10px;">
+                        <img src="<?= base_url() ?>assets/img/logo_kelatra.png" alt="Logo" style="height: 40px; margin-right: 10px;">
                         <span>
                             Katalindo Medikarya Utama
                         </span>

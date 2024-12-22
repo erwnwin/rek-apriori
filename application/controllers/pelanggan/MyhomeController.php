@@ -36,6 +36,13 @@ class MyhomeController extends CI_Controller
         // Ambil data produk dari model
         $data['books'] = $this->ProduksModel->get_produks();
 
+        $data['books1'] = $this->ProduksModel->get_produks_limit(3);
+
+        // Enkripsi ID untuk setiap produk
+        foreach ($data['books1'] as $book) {
+            $book->encrypted_id = $this->encrypt_id($book->id);
+        }
+
         // Enkripsi ID produk untuk setiap produk yang ada
         foreach ($data['books'] as $book) {
             $book->encrypted_id = $this->encrypt_id($book->id);
@@ -49,7 +56,7 @@ class MyhomeController extends CI_Controller
         $this->db->select('product_id, SUM(qty) as total_qty');
         $this->db->from('cart');
         $this->db->where('user_id', $user_id);
-        $this->db->where('status', 'pending');
+        $this->db->where('status', 2);
         $this->db->group_by('product_id');
         $this->db->order_by('total_qty', 'DESC');
         $this->db->limit(5);
@@ -59,7 +66,7 @@ class MyhomeController extends CI_Controller
         if (empty($user_recommendations)) {
             $this->db->select('product_id, SUM(qty) as total_qty');
             $this->db->from('cart');
-            $this->db->where('status', 'pending');
+            $this->db->where('status', 2);
             $this->db->group_by('product_id');
             $this->db->order_by('total_qty', 'DESC');
             $this->db->limit(5);

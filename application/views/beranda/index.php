@@ -8,22 +8,22 @@
                         <div class="col-md-6">
                             <div class="detail-box">
                                 <h1>
-                                    Welcome!
+                                    Welcome to Katalindo Medikarya Utama
                                 </h1>
                                 <p>
                                     Tersedia berbagai macam buku berkualitas, original dan harga terjangkau
                                     <br><br>Ayoooo!! Buruan order produk kami dengan klik tombol Buruan Daftar dan Nikmati transaksi pembelian di KATALINDO MEDIKARYA UTAMA.
                                 </p>
                                 <div class="btn-box">
-                                    <a href="index.php?ref=auth" class="btn1">
-                                        <i class="fa fa-user" aria-hidden="true"></i> Buruan Daftar!!
+                                    <a href="<?= base_url('register') ?>" class="btn1">
+                                        <i class="fa fa-whatsapp" aria-hidden="true"></i> Buruan Daftar!!
                                     </a>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="img-box">
-                                <img src="assets/images/sliderkuu.png" alt="">
+                                <img src="<?= base_url('assets/img/books4.png') ?>" alt="">
                             </div>
                         </div>
                     </div>
@@ -35,14 +35,14 @@
                         <div class="col-md-6">
                             <div class="detail-box">
                                 <h1>
-                                    Jam Tangan
+                                    Welcome to Katalindo Medikarya Utama
                                 </h1>
                                 <p>
                                     Tersedia berbagai macam buku berkualitas, original dan harga terjangkau
                                     <br><br>Ayoooo!! Buruan order produk kami dengan klik tombol Buruan Daftar dan Nikmati transaksi pembelian di KATALINDO MEDIKARYA UTAMA.
                                 </p>
                                 <div class="btn-box">
-                                    <a href="" class="btn1">
+                                    <a href="<?= base_url('register') ?>" class="btn1">
                                         <i class="fa fa-whatsapp" aria-hidden="true"></i> Buruan Daftar!!
                                     </a>
                                 </div>
@@ -50,7 +50,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="img-box">
-                                <img src="assets/images/sliderkuu.png" alt="">
+                                <img src="<?= base_url('assets/img/books4.png') ?>" alt="">
                             </div>
                         </div>
                     </div>
@@ -62,14 +62,14 @@
                         <div class="col-md-6">
                             <div class="detail-box">
                                 <h1>
-                                    Jam Tangan
+                                    Welcome to Katalindo Medikarya Utama
                                 </h1>
                                 <p>
                                     Tersedia berbagai macam buku berkualitas, original dan harga terjangkau
                                     <br><br>Ayoooo!! Buruan order produk kami dengan klik tombol Buruan Daftar dan Nikmati transaksi pembelian di KATALINDO MEDIKARYA UTAMA.
                                 </p>
                                 <div class="btn-box">
-                                    <a href="" class="btn1">
+                                    <a href="<?= base_url('register') ?>" class="btn1">
                                         <i class="fa fa-whatsapp" aria-hidden="true"></i> Buruan Daftar!!
                                     </a>
                                 </div>
@@ -77,7 +77,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="img-box">
-                                <img src="assets/images/sliderkuu.png" alt="">
+                                <img src="<?= base_url('assets/img/books4.png') ?>" alt="">
                             </div>
                         </div>
                     </div>

@@ -7,7 +7,7 @@
             <div class="container-fluid">
                 <nav class="navbar navbar-expand-lg custom_nav-container fixed-top" id="navbar">
                     <a class="navbar-brand" href="<?= base_url('beranda') ?>">
-                        <img src="<?= base_url() ?>assets/img/logo/logo_kelatra.png" alt="Logo" style="height: 40px; margin-right: 10px;">
+                        <img src="<?= base_url() ?>assets/img/logo_kelatra.png" alt="Logo" style="height: 40px; margin-right: 10px;">
                         <span>
                             Katalindo Medikarya Utama
                         </span>

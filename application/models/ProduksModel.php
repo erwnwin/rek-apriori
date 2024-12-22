@@ -12,6 +12,14 @@ class ProduksModel extends CI_Model
         return $query->result();
     }
 
+    public function get_produks_limit($limit)
+    {
+        $this->db->limit($limit); // Membatasi jumlah produk yang diambil
+        $query = $this->db->get('product');
+        return $query->result(); // Mengembalikan hasilnya dalam bentuk array
+    }
+
+
 
     public function get_produks()
     {

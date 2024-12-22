@@ -9,9 +9,9 @@
     <meta name="description" content="Modified by Erwins" />
     <meta name="author" content="Erwins" />
 
-    <link rel="apple-touch-icon" sizes="180x180" href="<?= base_url() ?>assets/img/logo/logo_kelatra.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="<?= base_url() ?>assets/img/logo/logo_kelatra.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="<?= base_url() ?>assets/img/logo/logo_kelatra.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="<?= base_url() ?>assets/img/logo_kelatra.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="<?= base_url() ?>assets/img/logo_kelatra.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="<?= base_url() ?>assets/img/logo_kelatra.png" />
 
     <title>Katalindo Medikarya Utama | <?= $title; ?></title>
 
@@ -219,6 +219,10 @@
             /* Efek hover, mengubah latar belakang */
             color: white;
             /* Mengubah warna teks saat hover */
+        }
+
+        .btn-link:hover {
+            text-decoration: none;
         }
     </style>
 
