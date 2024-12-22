@@ -14,7 +14,9 @@
             <div class="jumbotron">
                 <h1 class="display-6">Hai, <?=
                                             $this->session->userdata('first_name');
-                                            ?></h1>
+                                            ?> <?=
+                                                $this->session->userdata('last_name');
+                                                ?></h1>
                 <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
             </div>
         </div>
@@ -29,35 +31,21 @@
                     <i class="fa fa-user"></i> Account Profile
                 </div>
                 <div class="card-body">
-                    <table class="table table-striped">
+                    <table class="table table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">First Name</th>
-                                <th scope="col">Last Name</th>
-                                <th scope="col">Handle</th>
+                                <th scope="col">Field</th>
+                                <td>hsdhsadh</td>
+                            </tr>
+                            <tr>
+                                <th scope="col">Value</th>
+                                <td>hsdhsadh</td>
+                            </tr>
+                            <tr>
+                                <th scope="col">Value</th>
+                                <td>hsdhsadh</td>
                             </tr>
                         </thead>
-                        <tbody>
-                            <?php
-                            // Misalnya $users adalah array yang berisi data pengguna
-                            $users = [
-                                ['first_name' => 'John', 'last_name' => 'Doe', 'handle' => '@john_doe'],
-                                ['first_name' => 'Jane', 'last_name' => 'Smith', 'handle' => '@jane_smith'],
-                                ['first_name' => 'Michael', 'last_name' => 'Johnson', 'handle' => '@mike_johnson']
-                            ];
-
-                            // Loop untuk menampilkan setiap data pengguna
-                            foreach ($users as $index => $user) {
-                                echo "<tr>";
-                                echo "<th scope='row'>" . ($index + 1) . "</th>";
-                                echo "<td>" . $user['first_name'] . "</td>";
-                                echo "<td>" . $user['last_name'] . "</td>";
-                                echo "<td>" . $user['handle'] . "</td>";
-                                echo "</tr>";
-                            }
-                            ?>
-                        </tbody>
                     </table>
 
                     <a href="#" class="btn btn-primary">Go somewhere</a>

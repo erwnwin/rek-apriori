@@ -18,6 +18,37 @@ class UserModel extends CI_Model
         // $this->db->where('user.id', $user_id);
         // return $this->db->get()->result();
     }
+
+
+    // Method to check if username exists
+    public function is_username_taken($username)
+    {
+        $this->db->where('username', $username);
+        $query = $this->db->get('user');
+        return $query->num_rows() > 0;
+    }
+
+    // Method to check if email exists
+    public function is_email_taken($email)
+    {
+        $this->db->where('email', $email);
+        $query = $this->db->get('user');
+        return $query->num_rows() > 0;
+    }
+
+    // Method to check if phone number exists
+    public function is_phone_taken($phone)
+    {
+        $this->db->where('phone', $phone);
+        $query = $this->db->get('user');
+        return $query->num_rows() > 0;
+    }
+
+    // Insert user data into the database
+    public function insert_user($data)
+    {
+        return $this->db->insert('user', $data);
+    }
 }
 
 

@@ -68,8 +68,7 @@
                         <tr>
                             <td colspan="6">
                                 <center>
-                                    <img src="<?= base_url('public/no_data.svg') ?>" alt="" width="20%" class="mt-3">
-                                    <p class="mt-2">Opps!! No Data Here</p>
+                                    <img src="<?= base_url('assets/img/no-data.png') ?>" alt="" width="30%">
                                 </center>
                             </td>
                         </tr>

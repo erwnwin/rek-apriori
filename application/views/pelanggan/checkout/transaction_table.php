@@ -46,7 +46,7 @@
                     <td>
                         <?php if ($transaction->status === 'pending') : ?>
                             <button
-                                class="btn btn-primary btn-xs btn-sm pay-button-delete"
+                                class="btn btn-primary btn-xs btn-sm pay-button-continue"
                                 data-transaction-id="<?= $transaction->id_transaction ?>">
                                 Lanjutkan Pembayaran
                             </button>
@@ -77,7 +77,137 @@
     </table>
 
 <?php else : ?>
-    <div class="alert alert-info text-center">
-        Tidak ada transaksi yang ditemukan.
-    </div>
+    <center>
+        <img src="<?= base_url('assets/img/no-data.png') ?>" alt="" width="30%">
+    </center>
 <?php endif; ?>
+
+
+<script src="<?= base_url() ?>assets/frontend-ui/js/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+</script>
+<script src="<?= base_url() ?>assets/frontend-ui/js/bootstrap.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
+</script>
+<!-- SweetAlert2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+<script type="text/javascript"
+    src="https://app.sandbox.midtrans.com/snap/snap.js"
+    data-client-key="SB-Mid-client-482qQn-QWNCrxd1D"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+<script type="text/javascript">
+    $('.pay-button-continue').click(function(event) {
+        event.preventDefault();
+
+        var transactionId = $(this).data('transaction-id'); // Ambil transaction_id dari tombol
+
+        $.ajax({
+            url: '<?= base_url() ?>snap/resumePayment', // URL untuk request token pembayaran
+            method: 'POST',
+            data: {
+                order_id: transactionId // Kirim order_id ke server
+            },
+            success: function(response) {
+                var data = JSON.parse(response);
+
+                var snapToken = data.token; // Ambil token dari response
+                var orderId = data.order_id; // Ambil order_id dari response
+
+                console.log('Token = ' + snapToken);
+
+                function changeResult(type, data) {
+                    $("#result-type").val(type); // Simpan jenis hasil (success, pending, error)
+                    $("#result-data").val(JSON.stringify(data)); // Simpan data hasil transaksi
+                }
+
+                // Jika ada error dalam response, tampilkan pesan error
+                if (data.error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: data.error,
+                    }).then(() => {
+                        location.reload(); // Reload halaman setelah alert
+                    });
+                    return;
+                }
+
+                // Lakukan proses pembayaran menggunakan Snap Token
+                snap.pay(snapToken, {
+                    onSuccess: function(result) {
+                        console.log('Pembayaran berhasil:', result);
+
+                        // Kirimkan status pembayaran berhasil ke server
+                        $.ajax({
+                            url: '<?= base_url() ?>snap/updateTransactionStatus', // Endpoint untuk update status
+                            method: 'POST',
+                            data: {
+                                order_id: transactionId,
+                                status: 'settlement', // Update status transaksi menjadi 'settlement'
+                                payment_result: result // Kirim hasil pembayaran
+                            },
+                            success: function(updateResponse) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Berhasil',
+                                    text: 'Transaksi berhasil diperbarui!',
+                                }).then(() => {
+                                    location.reload(); // Reload halaman setelah transaksi berhasil
+                                });
+                            },
+                            error: function() {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error',
+                                    text: 'Terjadi kesalahan dalam memperbarui status transaksi.',
+                                }).then(() => {
+                                    location.reload(); // Reload halaman jika terjadi error
+                                });
+                            }
+                        });
+                    },
+                    onPending: function(result) {
+                        console.log('Pembayaran pending:', result);
+                        Swal.fire({
+                            icon: 'info',
+                            title: 'Pending',
+                            text: 'Segera lakukan pembayaran sebelum batas waktu yang ditentukan agar order anda bisa diselesaikan.',
+                        }).then(() => {
+                            location.reload(); // Reload halaman setelah alert
+                        });
+                    },
+                    onError: function(result) {
+                        console.log('Pembayaran gagal:', result);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Transaksi gagal, silakan coba lagi.',
+                        }).then(() => {
+                            location.reload(); // Reload halaman setelah alert
+                        });
+                    },
+                    onClose: function() {
+                        Swal.fire({
+                            icon: 'info',
+                            title: 'Lanjutkan Pembayaran',
+                            text: 'Anda menutup jendela pembayaran sebelum menyelesaikan transaksi.',
+                        }).then(() => {
+                            location.reload(); // Reload halaman setelah jendela Snap ditutup
+                        });
+                    }
+                });
+            },
+            error: function(xhr, status, error) {
+                // Menangani kesalahan jika AJAX gagal
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Opss!',
+                    text: 'Terjadi kesalahan dalam proses. Silakan coba lagi nanti.',
+                }).then(() => {
+                    location.reload(); // Reload halaman setelah alert
+                });
+            },
+        });
+    });
+</script>

@@ -16,7 +16,7 @@
                                 </p>
                                 <div class="btn-box">
                                     <a href="<?= base_url('register') ?>" class="btn1">
-                                        <i class="fa fa-whatsapp" aria-hidden="true"></i> Buruan Daftar!!
+                                        <i class="fa fa-send" aria-hidden="true"></i> Buruan Daftar!!
                                     </a>
                                 </div>
                             </div>
@@ -43,7 +43,7 @@
                                 </p>
                                 <div class="btn-box">
                                     <a href="<?= base_url('register') ?>" class="btn1">
-                                        <i class="fa fa-whatsapp" aria-hidden="true"></i> Buruan Daftar!!
+                                        <i class="fa fa-send" aria-hidden="true"></i> Buruan Daftar!!
                                     </a>
                                 </div>
                             </div>
@@ -70,7 +70,7 @@
                                 </p>
                                 <div class="btn-box">
                                     <a href="<?= base_url('register') ?>" class="btn1">
-                                        <i class="fa fa-whatsapp" aria-hidden="true"></i> Buruan Daftar!!
+                                        <i class="fa fa-send" aria-hidden="true"></i> Buruan Daftar!!
                                     </a>
                                 </div>
                             </div>

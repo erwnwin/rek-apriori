@@ -8,9 +8,9 @@
     <meta content="TitikBalikTeknologi - Makassar" name="Develop by Erwin, S.Kom" />
 
     <!-- Site favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="<?= base_url() ?>assets/img/logo/logo_kelatra.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="<?= base_url() ?>assets/img/logo/logo_kelatra.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="<?= base_url() ?>assets/img/logo/logo_kelatra.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="<?= base_url() ?>assets/img/logo_kelatra.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="<?= base_url() ?>assets/img/logo_kelatra.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="<?= base_url() ?>assets/img/logo_kelatra.png" />
 
     <!-- Font Awesome -->
     <!-- <link rel="stylesheet" href="public/css/all.min.css"> -->

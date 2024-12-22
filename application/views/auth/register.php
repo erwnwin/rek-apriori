@@ -1,3 +1,8 @@
+<div id="loading-overlay" style="display: none;">
+    <div id="loading-bar"></div>
+</div>
+
+
 <body class="hold-transition register-page">
 
     <div class="overlay" id="overlay" style="display: none;"></div>
@@ -41,7 +46,7 @@
                                     </span>
                                 </div>
                                 <input type="text" id="first_name" name="first_name" class="form-control"
-                                    placeholder="First Name" required>
+                                    placeholder="First Name">
                             </div>
                         </div>
                         <div class="form-group col-md-6">
@@ -56,7 +61,7 @@
                                     </span>
                                 </div>
                                 <input type="text" id="last_name" name="last_name" class="form-control"
-                                    placeholder="Last name" required>
+                                    placeholder="Last name">
                             </div>
                         </div>
                     </div>
@@ -72,7 +77,7 @@
                                     </span>
                                 </div>
                                 <input type="text" id="username" name="username" class="form-control"
-                                    placeholder="Type username" required>
+                                    placeholder="Type username">
                             </div>
                         </div>
                         <div class="form-group col-md-6">
@@ -86,7 +91,7 @@
                                     </span>
                                 </div>
                                 <input type="email" id="email" name="email" class="form-control"
-                                    placeholder="Type email valid" required>
+                                    placeholder="Type email valid">
                             </div>
                         </div>
                     </div>
@@ -103,7 +108,7 @@
                                     </span>
                                 </div>
                                 <input type="password" name="password" id="password" class="form-control"
-                                    placeholder="Password" required>
+                                    placeholder="Password">
                             </div>
                         </div>
                         <div class="form-group col-md-6">
@@ -118,14 +123,14 @@
                                     </span>
                                 </div>
                                 <input type="password" name="password_confirmation" id="password_confirmation"
-                                    class="form-control" placeholder="Konfirmasi Password" required>
+                                    class="form-control" placeholder="Konfirmasi Password">
                             </div>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <!-- <label for="gender">Jenis Kelamin</label> -->
-                            <select id=" jenis_kelamin" name="jenis_kelamin" class="form-control" required>
+                            <select id=" jenis_kelamin" name="jenis_kelamin" class="form-control">
                                 <option value="">Pilih Jenis Kelamin</option>
                                 <option value="Laki-laki">Laki-laki</option>
                                 <option value="Perempuan">Perempuan</option>
@@ -146,7 +151,7 @@
                                     </span>
                                 </div>
                                 <input type="number" id="phone" name="phone" class="form-control"
-                                    placeholder="Nomor HP" required>
+                                    placeholder="Nomor HP">
                             </div>
                         </div>
                     </div>
@@ -167,7 +172,7 @@
                                     </span>
                                 </div>
                                 <input type="text" id="address" name="address" class="form-control"
-                                    placeholder="Alamat" required>
+                                    placeholder="Alamat">
                             </div>
                         </div>
                     </div>

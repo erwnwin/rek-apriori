@@ -62,13 +62,14 @@ $route['logout'] = 'admin/LogoutController/logout';
 $route['login'] = 'frontend/LoginController/index';
 $route['login/act'] = 'frontend/LoginController/proses_login';
 $route['register'] = 'frontend/RegisterController/index';
+$route['auth/register'] = 'frontend/RegisterController/act_register';
 
 // akses admin/superadmin
 $route['dashboard'] = 'admin/DashboardController/index';
 $route['produks'] = 'admin/ProdukController/index';
 $route['publishers'] = 'admin/PublishersController/index';
 $route['banks'] = 'admin/BanksController/index';
-$route['regions'] = 'admin/RegionsController/index';
+$route['regions'] = 'admin/RegionsControllers/index';
 $route['customers'] = 'admin/customersController/index';
 $route['employees'] = 'admin/EmployeesController/index';
 $route['profile'] = 'admin/ProfilController/index';

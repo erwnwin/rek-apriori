@@ -74,7 +74,7 @@
                          </li>
 
 
-                         <li class="nav-item">
+                         <!-- <li class="nav-item">
                              <a href="<?= base_url('regions') ?>" class="nav-link <?= $this->uri->segment(1) == 'regions' ? 'active' : '' ?>">
                                  <i class="far fa-check-circle nav-icon"></i>
                                  <p>Region</p>
@@ -86,12 +86,12 @@
                                  <i class="far fa-check-circle nav-icon"></i>
                                  <p>Bank</p>
                              </a>
-                         </li>
+                         </li> -->
 
                          <li class="nav-item">
                              <a href="<?= base_url('customers') ?>" class="nav-link <?= $this->uri->segment(1) == 'customers' ? 'active' : '' ?>">
                                  <i class="far fa-check-circle nav-icon"></i>
-                                 <p>Customer</p>
+                                 <p>Customers</p>
                              </a>
                          </li>
 

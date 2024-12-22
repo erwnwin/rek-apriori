@@ -114,9 +114,9 @@
                     </table>
 
                 <?php else : ?>
-                    <div class="alert alert-info text-center">
-                        Tidak ada transaksi yang ditemukan.
-                    </div>
+                    <center>
+                        <img src="<?= base_url('assets/img/no-data.png') ?>" alt="" width="30%">
+                    </center>
                 <?php endif; ?>
             </div>
         </div>

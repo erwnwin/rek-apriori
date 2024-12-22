@@ -3,7 +3,7 @@
 
         <div class="login-form-container">
             <div class="login-form">
-                <img src="assets/img/logo/logo_kelatra.png" alt="" style="width: 18%;">
+                <img src="<?= base_url('assets/img/logo_kelatra.png') ?>" alt="" style="width: 18%;">
                 <div class="mb-5">
                     <p class="lead">Login to Katalindo Medikarya Utama
                     </p>
