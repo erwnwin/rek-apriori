@@ -22,6 +22,8 @@
 <script src="<?= base_url() ?>public/assets/js/add-guru.js"></script>
 <script src="<?= base_url() ?>public/assets/js/filter-mapel.js"></script>
 <script src="<?= base_url() ?>public/assets/plugins/select2/js/select2.full.min.js"></script>
+<script src="<?= base_url() ?>public/assets/plugins/chart.js/Chart.min.js"></script>
+<script src="<?= base_url() ?>public/assets/dist/js/pages/dashboard3.js"></script>
 <!-- <script src="<?= base_url() ?>public/assets/js/edit-kelas.js"></script> -->
 <!-- <script src="<?= base_url() ?>public/assets/js/drag.js"></script> -->
 <!-- <script src="<?= base_url() ?>public/assets/js/update-kategori.js"></script> -->

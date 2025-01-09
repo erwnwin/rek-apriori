@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="<?= base_url() ?>public/assets/dist/css/adminlte.min.css">
     <link rel="stylesheet" href="<?= base_url() ?>public/assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
     <link rel="stylesheet" href="<?= base_url() ?>public/assets/plugins/toastr/toastr.min.css">
-
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="<?= base_url() ?>public/assets/css/custom.css">
     <link rel="stylesheet" href="<?= base_url() ?>public/assets/css/select2-custom.css">
     <link rel="stylesheet" href="<?= base_url() ?>public/assets/css/upload.css">

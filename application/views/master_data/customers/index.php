@@ -58,8 +58,8 @@
                                                              <?php } ?>
                                                          </td>
                                                          <td>
-                                                             <button class="btn btn-sm btn-info"><i class="fas fa-edit"></i></button>
-                                                             <button class="btn btn-sm btn-dangerku"><i class="fas fa-trash"></i></button>
+                                                             <button class="btn btn-sm btn-danger" disabled><i class="fas fa-times-circle"></i> No Action Here</button>
+                                                             <!-- <button class="btn btn-sm btn-dangerku"><i class="fas fa-trash"></i></button> -->
                                                          </td>
                                                      </tr>
                                                  <?php } ?>

@@ -32,22 +32,22 @@ class HasilController extends CI_Controller
         $data['title'] = 'Hasil ';
 
         // Tahap 1: Ambil Data Transaksi
-        $query = $this->db->query("SELECT id_transaction, id_product, SUM(qty) as qty 
-       FROM cart2 GROUP BY id_transaction, id_product");
+        $query = $this->db->query("SELECT transaction_id, product_id, SUM(qty) as qty 
+       FROM cart GROUP BY transaction_id, product_id");
 
         $transactions = [];
         $qty_products = [];
 
         // Format data transaksi dan hitung jumlah qty produk
         foreach ($query->result() as $row) {
-            // Menyusun transaksi berdasarkan id_transaction
-            $transactions[$row->id_transaction][] = $row->id_product;
+            // Menyusun transaksi berdasarkan transaction_id
+            $transactions[$row->transaction_id][] = $row->product_id;
 
-            // Menjumlahkan qty untuk setiap id_product
-            if (!isset($qty_products[$row->id_product])) {
-                $qty_products[$row->id_product] = 0;
+            // Menjumlahkan qty untuk setiap product_id
+            if (!isset($qty_products[$row->product_id])) {
+                $qty_products[$row->product_id] = 0;
             }
-            $qty_products[$row->id_product] += $row->qty;
+            $qty_products[$row->product_id] += $row->qty;
         }
 
 

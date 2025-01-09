@@ -60,6 +60,9 @@
 
                                              </tbody>
                                          </table>
+                                         <div class="mt-3">
+                                             <?= $pagination; ?>
+                                         </div>
                                      </div>
                                  </div>
                                  <!-- /.card-body -->

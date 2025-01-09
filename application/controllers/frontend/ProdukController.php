@@ -27,15 +27,18 @@ class ProdukController extends CI_Controller
     }
 
 
-    public function detail($id_product)
+    public function detail($encrypted_id)
     {
+        // Mendekripsi ID produk yang diterima dari URL
+        $product_id = $this->decrypt_id($encrypted_id);
+
         $data['title'] = 'Detail Produk';
 
         $this->load->database();
         $this->load->library('Apriori');
 
         // Ambil data transaksi
-        $query = $this->db->query("SELECT id_transaction, GROUP_CONCAT(id_product) as products FROM cart2 GROUP BY id_transaction");
+        $query = $this->db->query("SELECT transaction_id, GROUP_CONCAT(product_id) as products FROM cart GROUP BY transaction_id");
         $transactions = [];
         foreach ($query->result() as $row) {
             $transactions[] = explode(',', $row->products);
@@ -49,9 +52,9 @@ class ProdukController extends CI_Controller
         // Cari rekomendasi berdasarkan produk yang diklik
         $recommendations = [];
         foreach ($frequent_itemsets as $itemset) {
-            if (in_array($id_product, $itemset)) {
+            if (in_array($product_id, $itemset)) {
                 foreach ($itemset as $item) {
-                    if ($item != $id_product && !in_array($item, $recommendations)) {
+                    if ($item != $product_id && !in_array($item, $recommendations)) {
                         $recommendations[] = $item;
                     }
                 }
@@ -59,7 +62,7 @@ class ProdukController extends CI_Controller
         }
 
         // Ambil detail produk utama
-        $product = $this->db->get_where('product', ['id' => $id_product])->row();
+        $product = $this->db->get_where('product', ['id' => $product_id])->row();
 
         // Ambil detail produk rekomendasi
         if (!empty($recommendations)) {
@@ -77,6 +80,21 @@ class ProdukController extends CI_Controller
         $this->load->view('frontend/header_er', $data);
         $this->load->view('produk/detail_produks', $data);
         $this->load->view('frontend/footer', $data);
+    }
+
+
+    private function decrypt_id($encrypted_id)
+    {
+        $salt = "secure_salt"; // Salt rahasia
+        $decoded = base64_decode(urldecode($encrypted_id));
+
+        if (strpos($decoded, '|') === false) {
+            return false; // Format tidak sesuai
+        }
+
+        list($id, $decoded_salt) = explode('|', $decoded);
+
+        return ($decoded_salt === $salt) ? $id : false; // Validasi salt
     }
 }
 

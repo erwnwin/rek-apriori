@@ -20,21 +20,34 @@ class TransaksiModel extends CI_Model
 
     public function get_transaksi_count()
     {
-        return $this->db->count_all('transactions2');
+        return $this->db->count_all('transactions_new');
     }
 
     public function get_transaksi_history($limit, $offset)
     {
-        $this->db->select('DISTINCT(transactions2.id_transaction), user2.first_name, user2.last_name, user2.address, date_transaction, user_account_name, user_account_number, transactions2.id_bank, date_transfer, report_transfer, transactions2.status', false);
-        $this->db->from('transactions2');
+        $this->db->select('DISTINCT(transactions_new.id_transaction), user.first_name, user.last_name, user.address, tgl_transaksi, transactions_new.status, transactions_new.status_kirim', false);
+        $this->db->from('transactions_new');
         $this->db->limit($limit, $offset);
-        $this->db->join('status_transactions', 'transactions2.status = status_transactions.id', 'left');
-        $this->db->join('bank', 'transactions2.id_bank = bank.id', 'left');
-        $this->db->join('cart2', 'cart2.id_transaction = transactions2.id_transaction', 'left');
-        $this->db->join('user2', 'cart2.id_user = user2.id', 'left');
-        $this->db->order_by('transactions2.id_transaction', 'desc');
+        $this->db->join('status_transactions', 'transactions_new.status = status_transactions.id', 'left');
+        $this->db->join('cart', 'cart.transaction_id = transactions_new.id_transaction', 'left');
+        $this->db->join('user', 'cart.user_id = user.id', 'left');
+        $this->db->order_by('transactions_new.id_transaction', 'desc');
         return $this->db->get()->result();
     }
+
+    // old query ku
+    // public function get_transaksi_history($limit, $offset)
+    // {
+    //     $this->db->select('DISTINCT(transactions_new.id_transaction), user.first_name, user.last_name, user.address, tgl_transaksi, user_account_name, user_account_number, transactions_new.id_bank, date_transfer, report_transfer, transactions_new.status', false);
+    //     $this->db->from('transactions_new');
+    //     $this->db->limit($limit, $offset);
+    //     $this->db->join('status_transactions', 'transactions_new.status = status_transactions.id', 'left');
+    //     $this->db->join('bank', 'transactions_new.id_bank = bank.id', 'left');
+    //     $this->db->join('cart', 'cart.id_transaction = transactions_new.id_transaction', 'left');
+    //     $this->db->join('user', 'cart.user_id = user.id', 'left');
+    //     $this->db->order_by('transactions_new.id_transaction', 'desc');
+    //     return $this->db->get()->result();
+    // }
 }
 
 /* End of file TransaksiModel.php */

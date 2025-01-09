@@ -15,10 +15,8 @@ class ProdukController extends CI_Controller
             redirect(base_url("beranda"));
         }
 
-        // Cek apakah hak_akses adalah Admin atau Super Admin
         $hak_akses = $this->session->userdata('hak_akses');
         if ($hak_akses != "Admin" && $hak_akses != "Super Admin") {
-            // Jika bukan Admin atau Super Admin, arahkan ke halaman beranda atau halaman lain
             redirect(base_url("beranda"));
         }
     }
@@ -29,7 +27,35 @@ class ProdukController extends CI_Controller
         $data['title'] = 'Produks ';
 
         $data['publisher'] = $this->ProduksModel->get_pubslihers();
-        $data['product'] = $this->ProduksModel->get_produks();
+        // $data['product'] = $this->ProduksModel->get_produks();
+
+        $this->load->library('pagination');
+
+        $config['base_url'] = base_url('produks');
+        $config['page_query_string'] = TRUE;
+        $config['query_string_segment'] = 'record';
+        $config['per_page'] = 10;
+        $config['total_rows'] = $this->ProduksModel->get_transaksi_count();
+
+        $config['full_tag_open'] = '<ul class="pagination">';
+        $config['full_tag_close'] = '</ul>';
+        $config['num_tag_open'] = '<li class="page-item">';
+        $config['num_tag_close'] = '</li>';
+        $config['cur_tag_open'] = '<li class="page-item active"><a class="page-link">';
+        $config['cur_tag_close'] = '</a></li>';
+        $config['prev_tag_open'] = '<li class="page-item">';
+        $config['prev_tag_close'] = '</li>';
+        $config['next_tag_open'] = '<li class="page-item">';
+        $config['next_tag_close'] = '</li>';
+        $config['attributes'] = array('class' => 'page-link');
+
+        $this->pagination->initialize($config);
+        $page = $this->input->get('record');
+        if (!$page) {
+            $page = 0;
+        }
+        $data['product'] = $this->ProduksModel->get_products($config['per_page'], $page);
+        $data['pagination'] = $this->pagination->create_links();
 
         $this->load->view('backend/head', $data);
         $this->load->view('backend/header', $data);

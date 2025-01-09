@@ -28,7 +28,6 @@ class TransaksiController extends CI_Controller
     {
         $data['title'] = 'Transaksi ';
 
-
         // Load library pagination
         $this->load->library('pagination');
 

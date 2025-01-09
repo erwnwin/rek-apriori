@@ -20,12 +20,28 @@ class ProduksModel extends CI_Model
     }
 
 
-
     public function get_produks()
     {
         $this->db->select('product.*, product.name as nama_produk, publisher.name as nama_publisher');
         $this->db->from('product'); // Menentukan tabel utama
         $this->db->join('publisher', 'product.publisher_id = publisher.id', 'left');
+        return $this->db->get()->result();
+    }
+
+    public function get_transaksi_count()
+    {
+        return $this->db->count_all('product');
+    }
+
+
+
+    public function get_products($limit, $offset)
+    {
+        $this->db->select('product.*, product.name as nama_produk, publisher.name as nama_publisher');
+        $this->db->from('product');
+        $this->db->limit($limit, $offset);
+        $this->db->join('publisher', 'product.publisher_id = publisher.id', 'left');
+        $this->db->order_by('product.id', 'desc');
         return $this->db->get()->result();
     }
 

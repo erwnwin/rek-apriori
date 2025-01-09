@@ -102,24 +102,22 @@
                                                              <td><?= $t->id_transaction; ?></td>
                                                              <td><?= $t->first_name . ' ' . $t->last_name; ?></td>
                                                              <td><?= $t->address; ?></td>
-                                                             <td><?= $t->date_transaction; ?></td>
+                                                             <td><?= $t->tgl_transaksi; ?></td>
                                                              <td>
                                                                  <?php
                                                                     switch ($t->status) {
-                                                                        case '1':
-                                                                            echo '<span class="badge bg-primary"><i class="fas fa-money-check"></i> Payment</span>';
+                                                                        case 'pending':
+                                                                            echo '<span class="badge bg-warning"><i class="fas fa-hourglass-half"></i> Pending</span>';
                                                                             break;
-                                                                        case '2':
-                                                                            echo '<span class="badge bg-warning"><i class="fas fa-paper-plane"></i> Confirmation</span>';
+                                                                        case 'settlement':
+                                                                            echo '<span class="badge bg-success"><i class="fas fa-check-circle"></i> Settlement</span>';
                                                                             break;
-                                                                        case '3':
-                                                                            echo '<span class="badge bg-success"><i class="fas fa-check-circle"></i> Success</span>';
-                                                                            break;
-                                                                        case '4':
-                                                                            echo '<span class="badge bg-danger"><i class="fas fa-times-circle"></i> Reject</span>';
+                                                                        default:
+                                                                            echo '<span class="badge bg-secondary"><i class="fas fa-info-circle"></i> Unknown</span>';
                                                                             break;
                                                                     }
                                                                     ?>
+
                                                              </td>
                                                              <td>
                                                                  <a href="<?= base_url('transaksi/detail/' . $t->id_transaction); ?>" class="btn btn-sm btn-outline-info">Detail</a>

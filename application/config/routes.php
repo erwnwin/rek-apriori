@@ -62,6 +62,7 @@ $route['logout'] = 'admin/LogoutController/logout';
 $route['login'] = 'frontend/LoginController/index';
 $route['login/act'] = 'frontend/LoginController/proses_login';
 $route['register'] = 'frontend/RegisterController/index';
+$route['forgot-password'] = 'frontend/ForgotPasswordController/index';
 $route['auth/register'] = 'frontend/RegisterController/act_register';
 
 // akses admin/superadmin

@@ -64,7 +64,7 @@ class BooksController extends CI_Controller
         $this->load->library('Apriori');
 
         // Ambil data transaksi yang berisi produk dalam keranjang (cart2)
-        $query = $this->db->query("SELECT id_transaction, GROUP_CONCAT(id_product) as products FROM cart2 GROUP BY id_transaction");
+        $query = $this->db->query("SELECT transaction_id, GROUP_CONCAT(product_id) as products FROM cart GROUP BY transaction_id");
         $transactions = [];
         foreach ($query->result() as $row) {
             $transactions[] = explode(',', $row->products);
