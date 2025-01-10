@@ -106,7 +106,7 @@
         </div>
         <div class="row">
             <?php foreach ($books1 as $book): ?>
-                <div class="col-sm-6 col-xl-3">
+                <div class="col-sm-6 col-xl-3" data-aos="fade-up" data-aos-delay="200">
                     <div class="box">
                         <a href="<?= base_url('produk/detail/' . $book->encrypted_id); ?>">
                             <div class="img-box">
@@ -150,24 +150,26 @@
 <section class="about_section layout_padding">
     <div class="container  ">
         <div class="row">
-            <div class="col-md-6 col-lg-5 ">
+            <div class="col-md-6 col-lg-5">
                 <div class="img-box">
-                    <img src="assets/images/jam6.jpg" alt="">
+                    <dotlottie-player src="https://lottie.host/0c97eeb9-aac5-4646-b2ad-c4f7e0a3da4e/GGPyO6qut4.lottie" background="transparent" speed="1" style="width: 300px; height: 300px" loop autoplay></dotlottie-player>
                 </div>
             </div>
+
             <div class="col-md-6 col-lg-7">
                 <div class="detail-box">
                     <div class="heading_container">
                         <h2>
-                            Tentang Produk Unggulan Kami
+                            Tentang Produk
                         </h2>
                     </div>
                     <p>
-                        DIGITEC SMART WATCH Jam Tangan Unisex Digital RUNNER SERIES Touchscreen adalah jam tangan dengan fitur canggih. Beberapa fitur antara lain layar sentuh, terdapat beberapa aplikasi yang dapat dijalankan pada Jam Tangan ini.
+                        Temukan koleksi buku berkualitas yang akan memperkaya wawasan dan memenuhi kebutuhan bacaan Anda.
                     </p>
                     <a href="">
                         Baca Selengkapnya
                     </a>
+
                 </div>
             </div>
         </div>
@@ -312,7 +314,7 @@
                         <div>
                             <input type="text" class="message-box" placeholder="Message" />
                         </div>
-                        <div class="d-flex ">
+                        <div class="d-flex">
                             <button>
                                 KIRIM
                             </button>
@@ -321,12 +323,20 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="img-box">
-                    <img src="assets/images/apple1.jpg" alt="">
+                <div class="img-box" style="margin-top: 20px;">
+                    <dotlottie-player
+                        src="https://lottie.host/3b0a98b2-7f07-4362-8577-639309254905/se6tBJwxOU.lottie"
+                        background="transparent"
+                        speed="1"
+                        style="width: 550px; height: 550px;"
+                        loop
+                        autoplay>
+                    </dotlottie-player>
                 </div>
             </div>
         </div>
     </div>
+
 </section>
 
 <!-- end contact section -->

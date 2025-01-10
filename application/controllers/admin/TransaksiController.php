@@ -82,22 +82,25 @@ class TransaksiController extends CI_Controller
         $end_date = $this->input->post('end_date');
         $status_filter = $this->input->post('status_filter');
 
-        $this->db->select('DISTINCT(transactions2.id_transaction), user2.first_name, user2.last_name, user2.address, date_transaction, user_account_name, user_account_number, transactions2.id_bank, date_transfer, report_transfer, transactions2.status');
-        $this->db->from('transactions2');
-        $this->db->join('status_transactions', 'transactions2.status = status_transactions.id', 'left');
-        $this->db->join('bank', 'transactions2.id_bank = bank.id', 'left');
-        $this->db->join('cart2', 'cart2.id_transaction = transactions2.id_transaction', 'left');
-        $this->db->join('user2', 'cart2.id_user = user2.id', 'left');
+        $this->db->select('DISTINCT(transactions_new.id_transaction), user.first_name, user.last_name, user.address, transactions_new.tgl_transaksi, transactions_new.status, transactions_new.status_kirim');
+        $this->db->from('transactions_new');
+        $this->db->join('status_transactions', 'transactions_new.status = status_transactions.id', 'left');
+        $this->db->join('cart', 'cart.transaction_id = transactions_new.id_transaction', 'left');
+        $this->db->join('user', 'cart.user_id = user.id', 'left');
 
         // Filter range tanggal
         if (!empty($start_date) && !empty($end_date)) {
-            $this->db->where('date_transaction >=', $start_date);
-            $this->db->where('date_transaction <=', $end_date);
+            $this->db->where('tgl_transaksi >=', $start_date);
+            $this->db->where('tgl_transaksi <=', $end_date);
         }
 
         // Filter status
         if (!empty($status_filter)) {
-            $this->db->where('transactions2.status', $status_filter);
+            if ($status_filter === 'kirim_pending') {
+                $this->db->where_in('transactions_new.status_kirim', ['pending_kirim', 'kirim']);
+            } else {
+                $this->db->where('transactions_new.status_kirim', $status_filter);
+            }
         }
 
         $query = $this->db->get();
@@ -109,34 +112,42 @@ class TransaksiController extends CI_Controller
         foreach ($transactions as $p) {
             $badge = '';
             switch ($p->status) {
-                case '1':
-                    $badge = '<span class="badge bg-primary"><i class="fas fa-money-check"></i> Payment</span>';
+                case 'pending':
+                    $badge = '<span class="badge bg-primary"><i class="fas fa-money-check"></i> Pending Payment</span>';
                     break;
-                case '2':
-                    $badge = '<span class="badge bg-warning"><i class="fas fa-paper-plane"></i> Confirmation</span>';
+                case 'settlement':
+                    $badge = '<span class="badge bg-success"><i class="fas fa-check-circle"></i> Done Payment</span>';
                     break;
-                case '3':
-                    $badge = '<span class="badge bg-success"><i class="fas fa-check-circle"></i> Success</span>';
+            }
+            $badge_kirim = '';
+            switch ($p->status_kirim) {
+                case 'pending_kirim':
+                    $badge_kirim = '<span class="badge bg-primary"><i class="fas fa-money-check"></i> Prepare Kirim</span>';
                     break;
-                case '4':
-                    $badge = '<span class="badge bg-danger"><i class="fas fa-times-circle"></i> Reject</span>';
+                case 'kirim':
+                    $badge_kirim = '<span class="badge bg-warning"><i class="fas fa-paper-plane"></i> Dikirim</span>';
+                    break;
+                case 'selesai':
+                    $badge_kirim = '<span class="badge bg-success"><i class="fas fa-check-circle"></i> Done Kirim</span>';
                     break;
             }
             $output .= '<tr>
-            <td>' . $no++ . '</td>
-            <td>' . $p->id_transaction . '</td>
-            <td>' . $p->first_name . ' ' . $p->last_name . '</td>
-            <td>' . $p->address . '</td>
-            <td>' . $p->date_transaction . '</td>
-            <td>' . $badge . '</td>
-            <td>
-                <a href="' . base_url('transaksi/detail/' . $p->id_transaction) . '" class="btn btn-sm btn-outline-info"><i class="fas fa-info-circle"></i> Detail</a>
-            </td>
-        </tr>';
+        <td>' . $no++ . '</td>
+        <td>' . $p->id_transaction . '</td>
+        <td>' . $p->first_name . ' ' . $p->last_name . '</td>
+        <td>' . $p->address . '</td>
+        <td>' . $p->tgl_transaksi . '</td>
+        <td>' . $badge . '</td>
+        <td>' . $badge_kirim . '</td>
+        <td>
+            <a href="' . base_url('transaksi/detail/' . $p->id_transaction) . '" class="btn btn-sm btn-outline-info"><i class="fas fa-info-circle"></i> Detail</a>
+        </td>
+    </tr>';
         }
 
         echo $output; // Kirim hasil HTML ke AJAX
     }
+
 
 
 
@@ -146,24 +157,23 @@ class TransaksiController extends CI_Controller
         $query = $this->input->post('query'); // Ambil input pencarian
 
         // Query dasar
-        $this->db->select('DISTINCT(transactions2.id_transaction), user2.first_name, user2.last_name, user2.address, date_transaction, user_account_name, user_account_number, transactions2.id_bank, date_transfer, report_transfer, transactions2.status');
-        $this->db->from('transactions2');
-        $this->db->join('status_transactions', 'transactions2.status = status_transactions.id', 'left');
-        $this->db->join('bank', 'transactions2.id_bank = bank.id', 'left');
-        $this->db->join('cart2', 'cart2.id_transaction = transactions2.id_transaction', 'left');
-        $this->db->join('user2', 'cart2.id_user = user2.id', 'left');
+        $this->db->select('DISTINCT(transactions_new.id_transaction), user.first_name, user.last_name, user.address, transactions_new.tgl_transaksi, transactions_new.status, transactions_new.status_kirim');
+        $this->db->from('transactions_new');
+        $this->db->join('status_transactions', 'transactions_new.status = status_transactions.id', 'left');
+        $this->db->join('cart', 'cart.transaction_id = transactions_new.id_transaction', 'left');
+        $this->db->join('user', 'cart.user_id = user.id', 'left');
 
         // Tambahkan filter jika ada input pencarian
         if (!empty($query)) {
             $this->db->group_start();
-            $this->db->like('user2.first_name', $query);
-            $this->db->or_like('user2.last_name', $query);
-            $this->db->or_like('date_transaction', $query);
+            $this->db->like('user.first_name', $query);
+            $this->db->or_like('user.last_name', $query);
+            $this->db->or_like('tgl_transaksi', $query);
             $this->db->group_end();
         }
 
         // Urutkan data
-        $this->db->order_by('transactions2.id_transaction', 'desc');
+        $this->db->order_by('transactions_new.id_transaction', 'desc');
 
         // Eksekusi query
         $transactions = $this->db->get()->result();
@@ -175,17 +185,24 @@ class TransaksiController extends CI_Controller
             // Tentukan badge berdasarkan status
             $badge = '';
             switch ($p->status) {
-                case '1':
-                    $badge = '<span class="badge bg-primary"><i class="fas fa-money-check"></i> Payment</span>';
+                case 'pending':
+                    $badge = '<span class="badge bg-primary"><i class="fas fa-money-check"></i> Pending Payment</span>';
                     break;
-                case '2':
-                    $badge = '<span class="badge bg-warning"><i class="fas fa-paper-plane"></i> Confirmation</span>';
+                case 'settlement':
+                    $badge = '<span class="badge bg-success"><i class="fas fa-check-circle"></i> Done Payment</span>';
                     break;
-                case '3':
-                    $badge = '<span class="badge bg-success"><i class="fas fa-check-circle"></i> Success</span>';
+            }
+
+            $badge_kirim = '';
+            switch ($p->status_kirim) {
+                case 'pending_kirim':
+                    $badge_kirim = '<span class="badge bg-primary"><i class="fas fa-money-check"></i> Prepare Kirim</span>';
                     break;
-                case '4':
-                    $badge = '<span class="badge bg-danger"><i class="fas fa-times-circle"></i> Reject</span>';
+                case 'kirim':
+                    $badge_kirim = '<span class="badge bg-warning"><i class="fas fa-paper-plane"></i> Dikirim</span>';
+                    break;
+                case 'selesai':
+                    $badge_kirim = '<span class="badge bg-success"><i class="fas fa-check-circle"></i> Done Kirim</span>';
                     break;
             }
 
@@ -195,8 +212,9 @@ class TransaksiController extends CI_Controller
             <td>' . $p->id_transaction . '</td>
             <td>' . $p->first_name . ' ' . $p->last_name . '</td>
             <td>' . $p->address . '</td>
-            <td>' . $p->date_transaction . '</td>
+            <td>' . $p->tgl_transaksi . '</td>
             <td>' . $badge . '</td>
+            <td>' . $badge_kirim . '</td>
             <td>
                 <a href="' . base_url('transaksi/detail/' . $p->id_transaction) . '" class="btn btn-sm btn-outline-info"><i class="fas fa-info-circle"></i> Detail</a>
             </td>
@@ -205,7 +223,7 @@ class TransaksiController extends CI_Controller
 
         // Jika tidak ada data
         if (empty($output)) {
-            $output = '<tr><td colspan="7" class="text-center">Tidak ada data ditemukan</td></tr>';
+            $output = '<tr><td colspan="8" class="text-center">Tidak ada data ditemukan</td></tr>';
         }
 
         echo $output; // Kirim data HTML ke AJAX

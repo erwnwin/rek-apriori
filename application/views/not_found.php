@@ -77,7 +77,37 @@
             </div>
         </div>
     </section>
+    <script>
+        // Menangani tombol keyboard seperti F12 dan Ctrl+Shift+I
+        document.addEventListener('keydown', function(event) {
+            // Deteksi apakah tombol F12 atau Ctrl+Shift+I ditekan
+            if ((event.key === 'F12') ||
+                (event.ctrlKey && event.shiftKey && event.key === 'I')) {
+                event.preventDefault(); // Mencegah aksi default (membuka DevTools)
+                alert('Developer Tools tidak diizinkan!');
+            }
+        });
 
+        // Menangani tombol klik kanan (contextmenu)
+        document.addEventListener('contextmenu', function(event) {
+            event.preventDefault(); // Mencegah menu klik kanan
+            alert('Klik kanan tidak diizinkan!');
+        });
+
+        // Cegah F12 dan Inspect dari shortcut browser
+        (function() {
+            let devtools = /./;
+            devtools.toString = function() {
+                this.open = true;
+            };
+            setInterval(function() {
+                if (devtools.open) {
+                    alert('Developer Tools tidak diizinkan!');
+                    devtools.open = false; // Reset deteksi
+                }
+            }, 1000);
+        })();
+    </script>
 </body>
 
 </html>

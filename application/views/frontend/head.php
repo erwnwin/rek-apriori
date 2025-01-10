@@ -22,7 +22,7 @@
     <link href="<?= base_url() ?>assets/frontend-ui/css/font-awesome.min.css" rel="stylesheet" />
     <link href="<?= base_url() ?>assets/frontend-ui/css/style.css" rel="stylesheet" />
     <link href="<?= base_url() ?>assets/frontend-ui/css/responsive.css" rel="stylesheet" />
-
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
 
     <style>
         body {
@@ -223,6 +223,29 @@
 
         .btn-link:hover {
             text-decoration: none;
+        }
+
+        /* Hover Effect */
+        .box {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .box:hover {
+            transform: scale(1.05);
+            /* Membesarkan elemen */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* AOS Animasi */
+        [data-aos="fade-up"] {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.5s ease-in-out;
+        }
+
+        [data-aos="fade-up"].aos-animate {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 

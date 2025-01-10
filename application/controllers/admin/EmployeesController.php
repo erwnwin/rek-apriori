@@ -8,6 +8,8 @@ class EmployeesController extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->load->model('EmployesModel');
+
         if ($this->session->userdata('status') != "login") {
             redirect(base_url("beranda"));
         }
@@ -24,6 +26,8 @@ class EmployeesController extends CI_Controller
     public function index()
     {
         $data['title'] = 'Employees ';
+
+        $data['employes'] = $this->EmployesModel->get_employes();
 
         $this->load->view('backend/head', $data);
         $this->load->view('backend/header', $data);

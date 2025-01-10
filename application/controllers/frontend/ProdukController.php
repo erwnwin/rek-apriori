@@ -20,12 +20,24 @@ class ProdukController extends CI_Controller
         $data['title'] = 'Produk';
         $data['books'] = $this->ProduksModel->get_produks();
 
+        // $data['books1'] = $this->ProduksModel->get_produks_limit(8);
+
+        foreach ($data['books'] as $book) {
+            $book->encrypted_id = $this->encrypt_id($book->id);
+        }
+
         $this->load->view('frontend/head', $data);
         $this->load->view('frontend/header_er', $data);
         $this->load->view('produk/index', $data);
         $this->load->view('frontend/footer', $data);
     }
 
+
+    private function encrypt_id($id)
+    {
+        $salt = "secure_salt"; // Salt rahasia
+        return urlencode(base64_encode($id . '|' . $salt));
+    }
 
     public function detail($encrypted_id)
     {

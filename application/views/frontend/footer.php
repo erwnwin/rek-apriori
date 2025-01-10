@@ -71,6 +71,14 @@
 </script>
 <script src="assets/frontend-ui/js/custom.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap"></script>
+<script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 1000, // Durasi animasi
+        once: true // Animasi hanya dijalankan sekali saat elemen terlihat
+    });
+</script>
 
 <script>
     // Tampilkan loading
@@ -130,6 +138,38 @@
             navbar.classList.remove("scrolled");
         }
     }
+</script>
+
+<script>
+    // Menangani tombol keyboard seperti F12 dan Ctrl+Shift+I
+    document.addEventListener('keydown', function(event) {
+        // Deteksi apakah tombol F12 atau Ctrl+Shift+I ditekan
+        if ((event.key === 'F12') ||
+            (event.ctrlKey && event.shiftKey && event.key === 'I')) {
+            event.preventDefault(); // Mencegah aksi default (membuka DevTools)
+            alert('Developer Tools tidak diizinkan!');
+        }
+    });
+
+    // Menangani tombol klik kanan (contextmenu)
+    document.addEventListener('contextmenu', function(event) {
+        event.preventDefault(); // Mencegah menu klik kanan
+        alert('Klik kanan tidak diizinkan!');
+    });
+
+    // Cegah F12 dan Inspect dari shortcut browser
+    (function() {
+        let devtools = /./;
+        devtools.toString = function() {
+            this.open = true;
+        };
+        setInterval(function() {
+            if (devtools.open) {
+                alert('Developer Tools tidak diizinkan!');
+                devtools.open = false; // Reset deteksi
+            }
+        }, 1000);
+    })();
 </script>
 </body>
 

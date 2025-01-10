@@ -7,12 +7,12 @@ class ExportModel extends CI_Model
     // Mengambil data transaksi
     public function getTransactions()
     {
-        $query = $this->db->select('id_transaction, GROUP_CONCAT(id_product) as produk')
-            ->group_by('id_transaction')
-            ->get('cart2');
+        $query = $this->db->select('transaction_id, GROUP_CONCAT(product_id) as produk')
+            ->group_by('transaction_id')
+            ->get('cart');
         $result = [];
         foreach ($query->result() as $row) {
-            $result[$row->id_transaction] = explode(',', $row->produk);
+            $result[$row->transaction_id] = explode(',', $row->produk);
         }
         return $result;
     }
@@ -20,14 +20,14 @@ class ExportModel extends CI_Model
     // Menghitung support tiap produk
     public function getProductSupport()
     {
-        $query = $this->db->select('id_product, COUNT(*) as qty')
-            ->group_by('id_product')
-            ->get('cart2');
-        $totalTransactions = $this->db->count_all('cart2');
+        $query = $this->db->select('product_id, COUNT(*) as qty')
+            ->group_by('product_id')
+            ->get('cart');
+        $totalTransactions = $this->db->count_all('cart');
 
         $support = [];
         foreach ($query->result() as $row) {
-            $support[$row->id_product] = $row->qty / $totalTransactions;
+            $support[$row->product_id] = $row->qty / $totalTransactions;
         }
         return $support;
     }
@@ -83,6 +83,42 @@ class ExportModel extends CI_Model
             }
         }
         return $recommendations;
+    }
+
+
+
+    public function get_filtered_data($start_date, $end_date, $status_filter)
+    {
+        // Mulai query builder
+        $this->db->select('
+            DISTINCT(transactions_new.id_transaction),
+            transactions_new.type_bayar,
+            transactions_new.total_pembelian,
+            transactions_new.tgl_transaksi,
+            transactions_new.status,
+            transactions_new.status_kirim
+        ');
+        $this->db->from('transactions_new');
+        $this->db->join('status_transactions', 'transactions_new.status = status_transactions.id', 'left');
+        $this->db->join('cart', 'cart.transaction_id = transactions_new.id_transaction', 'left');
+        $this->db->join('user', 'cart.user_id = user.id', 'left');
+
+        // Filter berdasarkan tanggal jika ada
+        if (!empty($start_date) && !empty($end_date)) {
+            $this->db->where('DATE(tgl_transaksi) >=', $start_date);
+            $this->db->where('DATE(tgl_transaksi) <=', $end_date);
+        }
+
+        // Filter berdasarkan status jika ada
+        if (!empty($status_filter)) {
+            $this->db->where('status_kirim', $status_filter);
+        }
+
+        // Eksekusi query
+        $query = $this->db->get();
+
+        // Kembalikan hasil query
+        return $query->result_array();
     }
 }
 

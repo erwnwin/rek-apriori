@@ -44,31 +44,31 @@
                                                      <input type="date" id="end_date" name="end_date" class="form-control form-control-sm">
                                                  </div>
                                                  <div class="col-md-4 col-sm-12 mb-2">
-                                                     <label for="status_filter" class="d-block">Status</label>
+                                                     <label for="status_filter" class="d-block">Status Pengiriman</label>
                                                      <select id="status_filter" name="status_filter" class="form-control form-control-sm">
                                                          <option value="">All</option>
-                                                         <option value="1">Payment</option>
-                                                         <option value="2">Confirmation</option>
-                                                         <option value="3">Success</option>
-                                                         <option value="4">Reject</option>
+                                                         <option value="pending_kirim">Pending</option>
+                                                         <option value="kirim">Kirim</option>
+                                                         <option value="selesai">Selesai</option>
                                                      </select>
                                                  </div>
                                              </form>
                                          </div>
                                      </div>
                                      <!-- Export Buttons -->
-                                     <div class="row mb-3">
+                                     <div class="row ">
                                          <div class="col-md-6 mb-1">
-                                             <button id="export_all" class="btn btn-primaryku btn-block btn-sm">
-                                                 <i class="fas fa-file-excel"></i> Export All to Excel
+                                             <button id="export_pdf" class="btn btn-primaryku btn-block btn-sm" hidden>
+                                                 <i class="fas fa-file-pdf"></i> Export to PDF
                                              </button>
                                          </div>
                                          <div class="col-md-6">
-                                             <button id="export_filtered" class="btn btn-info btn-block btn-sm">
-                                                 <i class="fas fa-filter"></i> Export Filtered to Excel
+                                             <button id="export_excel" class="btn btn-info btn-block btn-sm" hidden>
+                                                 <i class="fas fa-file-excel"></i> Export to Excel
                                              </button>
                                          </div>
                                      </div>
+
                                  </div>
                              </div>
 
@@ -89,6 +89,7 @@
                                                      <th>Alamat Lengkap</th>
                                                      <th>Tanggal Transaksi</th>
                                                      <th>Status Transaksi</th>
+                                                     <th>Status Kirim</th>
                                                      <th></th>
                                                  </tr>
                                              </thead>
@@ -114,6 +115,22 @@
                                                                             break;
                                                                         default:
                                                                             echo '<span class="badge bg-secondary"><i class="fas fa-info-circle"></i> Unknown</span>';
+                                                                            break;
+                                                                    }
+                                                                    ?>
+
+                                                             </td>
+                                                             <td>
+                                                                 <?php
+                                                                    switch ($t->status_kirim) {
+                                                                        case 'pending_kirim':
+                                                                            echo '<span class="badge bg-warning"><i class="fas fa-hourglass-half"></i> Pending Kirim</span>';
+                                                                            break;
+                                                                        case 'kirim':
+                                                                            echo '<span class="badge bg-info"><i class="fas fa-check-circle"></i> Dikirim</span>';
+                                                                            break;
+                                                                        case 'selesai':
+                                                                            echo '<span class="badge bg-success"><i class="fas fa-check-circle"></i> Selesai</span>';
                                                                             break;
                                                                     }
                                                                     ?>
