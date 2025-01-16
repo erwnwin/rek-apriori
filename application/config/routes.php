@@ -68,6 +68,10 @@ $route['auth/register'] = 'frontend/RegisterController/act_register';
 // akses admin/superadmin
 $route['dashboard'] = 'admin/DashboardController/index';
 $route['produks'] = 'admin/ProdukController/index';
+$route['produks/act'] = 'admin/ProdukController/act';
+$route['produks/update'] = 'admin/ProdukController/update';
+$route['produks/check_delete'] = 'admin/ProdukController/check_delete';
+$route['produks/delete'] = 'admin/ProdukController/delete';
 $route['publishers'] = 'admin/PublishersController/index';
 $route['banks'] = 'admin/BanksController/index';
 $route['regions'] = 'admin/RegionsControllers/index';

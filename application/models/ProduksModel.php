@@ -64,6 +64,34 @@ class ProduksModel extends CI_Model
     {
         return $this->db->get_where('product', ['id' => $productId])->row();
     }
+
+
+    public function add_product($data)
+    {
+        return $this->db->insert('product', $data);
+    }
+
+
+    public function update_produk($id, $data)
+    {
+        $this->db->where('id', $id);
+        $this->db->update('product', $data);
+    }
+
+
+    public function is_used_in_cart($product_id)
+    {
+        $this->db->where('product_id', $product_id);
+        $query = $this->db->get('cart');
+        return $query->num_rows() > 0; // Return true jika data digunakan
+    }
+
+    // Hapus data produk
+    public function delete_produk($id)
+    {
+        $this->db->where('id', $id);
+        $this->db->delete('product');
+    }
 }
 
 /* End of file ProduksModel.php */

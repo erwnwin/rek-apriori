@@ -283,7 +283,58 @@
     });
 </script>
 
+<script>
+    $(document).ready(function() {
+        $('.btn-edit').on('click', function() {
+            var id = $(this).data('id');
+            var name = $(this).data('name');
+            var publisher = $(this).data('publisher');
+            var description = $(this).data('description');
+            var price = $(this).data('price');
+            var qty = $(this).data('qty');
 
+            $('#edit-id').val(id);
+            $('#edit-name').val(name);
+            $('#edit-publisher').val(publisher);
+            $('#edit-description').val(description);
+            $('#edit-price').val(price);
+            $('#edit-qty').val(qty);
+
+            $('#modal-edit').modal('show');
+        });
+    });
+</script>
+
+
+<script>
+    $(document).ready(function() {
+        $('.btn-delete').on('click', function() {
+            var id = $(this).data('id');
+            $('#delete-id').val(id); // Set ID untuk form delete
+            $('#delete-error').hide(); // Sembunyikan pesan error
+            $('#delete-message').show(); // Tampilkan pesan konfirmasi
+            $('#modal-delete').modal('show'); // Tampilkan modal
+
+            // Cek apakah data digunakan di tabel lain
+            $.ajax({
+                url: '<?= base_url('produks/check_delete') ?>',
+                type: 'POST',
+                data: {
+                    id: id
+                },
+                success: function(response) {
+                    if (response == 'used') {
+                        $('#delete-message').hide(); // Sembunyikan pesan konfirmasi
+                        $('#delete-error').show(); // Tampilkan pesan error
+                        $('#delete-form').hide(); // Sembunyikan tombol hapus
+                    } else {
+                        $('#delete-form').show(); // Tampilkan tombol hapus
+                    }
+                }
+            });
+        });
+    });
+</script>
 
 
 
