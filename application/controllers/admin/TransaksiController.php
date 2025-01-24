@@ -76,6 +76,74 @@ class TransaksiController extends CI_Controller
     }
 
 
+    public function create()
+    {
+        $data['title'] = 'Transaksi ';
+
+        $data['customers'] = $this->TransaksiModel->get_customers();
+        $data['products'] = $this->TransaksiModel->get_products();
+
+        $this->load->view('backend/head', $data);
+        $this->load->view('backend/header', $data);
+        $this->load->view('backend/sidebar', $data);
+        $this->load->view('apriori/transaksi/create', $data);
+        $this->load->view('backend/footer', $data);
+    }
+
+
+    public function save_batch()
+    {
+        // Ambil data dari form
+        $tanggal = $this->input->post('tanggal');
+        $user_id = $this->input->post('user_id');
+        $product_id = $this->input->post('product_id');
+        $jumlah = $this->input->post('jumlah');
+        $harga = $this->input->post('harga');
+        $total = $this->input->post('total');
+
+        // Generate transaction ID
+        $transaction_id = 'TRX' . time();
+
+        // Hitung total pembelian dari semua produk
+        $total_pembelian = array_sum($total);
+
+        // Data untuk tabel transactions_new (hanya satu data)
+        $transaction_data = array(
+            'user_id' => $user_id,
+            'id_transaction' => $transaction_id,
+            'type_bayar' => 'transfer', // Contoh, bisa disesuaikan
+            'total_pembelian' => $total_pembelian,
+            'tgl_transaksi' => $tanggal,
+            'expired_at' => date('Y-m-d H:i:s', strtotime('+1 day')), // Contoh, expired 1 hari setelah transaksi
+            'status' => 'settlement',
+            'status_kirim' => 'pending_kirim'
+        );
+
+        // Simpan data ke tabel transactions_new
+        $this->TransaksiModel->insert_transaction($transaction_data);
+
+        // Data untuk tabel cart (batch data)
+        $cart_data = [];
+        foreach ($product_id as $key => $value) {
+            $cart_data[] = array(
+                'product_id' => $product_id[$key],
+                'user_id' => $user_id,
+                'qty' => $jumlah[$key],
+                'region_id' => null, // Sesuaikan jika ada
+                'bank_id' => null, // Sesuaikan jika ada
+                'transaction_id' => $transaction_id,
+                'status' => '4',
+                'timestamp' => $tanggal // Gunakan tanggal yang dipilih
+            );
+        }
+
+        // Simpan data batch ke tabel cart
+        $this->TransaksiModel->insert_batch_cart($cart_data);
+        $this->session->set_flashdata('success', 'Data berhasil dihapus.');
+        redirect(base_url('transaksi'));
+    }
+
+
     public function filter()
     {
         $start_date = $this->input->post('start_date');

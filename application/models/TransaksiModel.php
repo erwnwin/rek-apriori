@@ -35,6 +35,30 @@ class TransaksiModel extends CI_Model
         return $this->db->get()->result();
     }
 
+
+    public function get_customers()
+    {
+        return $this->db->get('user')->result();
+    }
+
+    // Ambil data produk dari tabel products
+    public function get_products()
+    {
+        return $this->db->get('product')->result();
+    }
+
+
+    public function insert_transaction($data)
+    {
+        $this->db->insert('transactions_new', $data);
+    }
+
+    // Insert batch data ke tabel cart
+    public function insert_batch_cart($data)
+    {
+        $this->db->insert_batch('cart', $data);
+    }
+
     // old query ku
     // public function get_transaksi_history($limit, $offset)
     // {

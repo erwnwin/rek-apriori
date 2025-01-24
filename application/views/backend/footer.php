@@ -30,7 +30,7 @@
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script> -->
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     // Data untuk grafik
@@ -333,6 +333,60 @@
                 }
             });
         });
+    });
+</script>
+
+
+<script>
+    $(document).ready(function() {
+        var i = 1;
+
+        // Tambah baris baru
+        $('#add').click(function() {
+            i++;
+            $('#dynamic_field').append('<tr id="row' + i + '">' +
+                '<td>' +
+                '<select name="product_id[]" class="form-control product-select" required>' +
+                '<option value="">Pilih Barang</option>' +
+                '<?php foreach ($products as $product) : ?>' +
+                '<option value="<?= $product->id; ?>" data-harga="<?= $product->price; ?>">' +
+                '<?= $product->name; ?>' +
+                '</option>' +
+                '<?php endforeach; ?>' +
+                '</select>' +
+                '</td>' +
+                '<td><input type="number" name="jumlah[]" class="form-control jumlah" required></td>' +
+                '<td><input type="text" name="harga[]" class="form-control harga" readonly></td>' +
+                '<td><input type="text" name="total[]" class="form-control total" readonly></td>' +
+                '<td><button type="button" name="remove" id="' + i + '" class="btn btn-dangerku btn_remove">Hapus</button></td>' +
+                '</tr>');
+        });
+
+        // Hapus baris
+        $(document).on('click', '.btn_remove', function() {
+            var button_id = $(this).attr("id");
+            $('#row' + button_id + '').remove();
+        });
+
+        // Autofill harga dan hitung total
+        $(document).on('change', '.product-select', function() {
+            var harga = $(this).find(':selected').data('harga');
+            var row = $(this).closest('tr');
+            row.find('.harga').val(harga);
+            hitungTotal(row);
+        });
+
+        $(document).on('input', '.jumlah', function() {
+            var row = $(this).closest('tr');
+            hitungTotal(row);
+        });
+
+        function hitungTotal(row) {
+            var harga = parseFloat(row.find('.harga').val()) || 0;
+            var jumlah = parseFloat(row.find('.jumlah').val()) || 0;
+            var total = harga * jumlah;
+            row.find('.total').val(total);
+        }
     });
 </script>
 
