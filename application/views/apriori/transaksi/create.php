@@ -63,6 +63,7 @@
                             </tr>
                         </table>
                         <button type="submit" class="btn btn-primaryku">Simpan Batch</button>
+                        <a href="<?= base_url('transaksi') ?>" class="btn btn-dangerku">Back</a>
                     </form>
                 </div>
             </div>
